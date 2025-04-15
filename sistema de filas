@@ -1,5 +1,4 @@
 pessoas = {}
-listapessoas = []
 from time import sleep
 def menu():
     print('[1] Adicionar Pessoa a fila')
@@ -7,9 +6,16 @@ def menu():
     print('[3] Mostrar fila')
     print('[4] Priorizar Pessoa Por idade')
     print('[5] Sair')
+    print()
+    sleep(0.3)
 def adicao():
     while True:
         try:
+            sleep(0.5)
+            print('-='*30)
+            print('== CADASTRO DO USUARIO ==')
+            sleep(0.5)
+            print()
             pessoas = {}
             nome = str(input('Digite o nome da pessoa: ')).strip().capitalize()
             pessoas['Nome'] = nome
@@ -28,37 +34,60 @@ def adicao():
         
 def mostrafila():
     print('Fila Atual:')
+    print()
     if not listapessoas:
         print('Nenhuma pessoa na fila.')
+        print()
     else:
         for i, pessoa in enumerate(listapessoas, start=1):
             print(f"{i}. Nome: {pessoa['Nome']} | Idade: {pessoa['Idade']}")
+            print('-'*30)
+            
  
 def prox():
+         sleep(0.3)
+         print()
          proximo = listapessoas.pop(0)
          print(f"atendendo {proximo['Nome']} ({proximo['Idade']} anos)")
+         print()
+         sleep(0.3)
 
 def priorizar():
-         priorizado = lista.pessoas.pop(x)
-         listapessoas.insert(0,priorizado)
-         
+         sleep(0.3)
+         print()
+         prio = str(input('Digite o nome da Pessoa a priorizar: ')).strip().capitalize()
+         for i,pessoa in enumerate(listapessoas):
+             if prio in pessoa['Nome']:
+                 priorizado = listapessoas.pop(i)
+                 listapessoas.insert(0,priorizado)
+         print(f'Pessoa {pessoa["Nome"]} priorizada para o inicio da fila.')
+         print()
+         sleep(0.3)
          
 
 
 # Inicio
-
+fila = []
 while True:
-    print('=== SISTEMA DE FILA ===')
-    menu()
-    opc = int(input('Escolha uma opcao: '))
+    try:
+        print('=== SISTEMA DE FILA ===')
+        menu()
+        opc = int(input('Escolha uma opcao: '))
+    except ValueError:
+        print('Erro, Digite uma opção valida!')
+        continue
    
     if opc == 5:
         break
-    if opc == 1:
-        adicao()
-    if opc == 2:
-        prox()
-    if opc == 3:
-        mostrafila()
-    if opc == 4:
-        priorizar()
+    elif opc == 1:
+        adicao(fila)
+    elif opc == 2:
+        prox(fila)
+    elif opc == 3:
+        mostrafila(fila)
+    elif opc == 4:
+        priorizar(fila)
+    else:
+        print('Erro, Digite uma opção valida!')
+        
+        
